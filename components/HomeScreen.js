@@ -2,6 +2,8 @@ import React, { Component, } from 'react'
 import { View, Text, SectionList  } from 'react-native'
 import API_KEY from '../key'
 import axios from 'axios' 
+import Header from './Header'
+import NewsItem from './NewsItem'
 
 
 class HomeScreen extends Component {
@@ -57,7 +59,8 @@ class HomeScreen extends Component {
                         renderItem={({ item}) => (
                             <NewsItem
                                 id={item.id}
-                                title={item.webTitle} />
+                                title={item.webTitle}
+                                navigation={this.props.navigation} />
                         )}
                         keyExtractor={item => item.id}
                         renderSectionHeader={({ section }) => <Header key={section.title} title={section.title} />}
