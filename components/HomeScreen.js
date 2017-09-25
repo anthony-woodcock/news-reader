@@ -1,5 +1,5 @@
 import React, { Component, } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, SectionList  } from 'react-native'
 import API_KEY from '../key'
 import axios from 'axios' 
 
@@ -49,10 +49,26 @@ class HomeScreen extends Component {
     }
 
     render() {
+
+        if (this.state.news.length) {
+            return (
+                <View>
+                    <SectionList
+                        renderItem={({ item}) => (
+                            <NewsItem
+                                id={item.id}
+                                title={item.webTitle} />
+                        )}
+                        keyExtractor={item => item.id}
+                        renderSectionHeader={({ section }) => <Header key={section.title} title={section.title} />}
+                        sections={this.state.news}
+                    />
+                </View>
+            )
+        }
+
         return (
-            <View>
-            <Text>This is where the news listings will go</Text>
-            </View>
+            <Text>Loading....</Text>
         )
     }
 
