@@ -5,7 +5,7 @@ import axios from 'axios'
 import Header from './Header'
 import NewsItem from './NewsItem'
 
-
+ 
 class HomeScreen extends Component {
     constructor () {
         super()
@@ -20,7 +20,7 @@ class HomeScreen extends Component {
     handleNewsUpdate (response) {
         const results = response.data.response.results
         const news = []
-        console.log(results)
+        
 
         results.forEach(function (result) {
             const existingSection = news.find(function getBySectionName (section) {
@@ -38,11 +38,10 @@ class HomeScreen extends Component {
         })
 
         this.setState({ news })
-        console.log(this.state.news)
     }
 
     componentDidMount () {
-        axios.get(`https://content.guardianapis.com/search?api-key=${API_KEY}`)
+        axios.get(`https://content.guardianapis.com/search?api-key=${API_KEY}&show-fields=thumbnail`)
             .then(response => {
                 this.handleNewsUpdate(response)
         })
@@ -60,6 +59,8 @@ class HomeScreen extends Component {
                             <NewsItem
                                 id={item.id}
                                 title={item.webTitle}
+                                thumbnail={item.fields.thumbnail}
+                                url={item}
                                 navigation={this.props.navigation} />
                         )}
                         keyExtractor={item => item.id}
